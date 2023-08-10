@@ -1,5 +1,6 @@
 package chaincue.tech.r2dbcbackend.masters.teacher_master;
 
+import chaincue.tech.r2dbcbackend.masters.course_master.CourseHelper;
 import chaincue.tech.r2dbcbackend.utilities.ANSIColors;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,18 +24,36 @@ class TeacherHelperTest {
     @Autowired
     TeacherHelper teacherHelper;
 
-    @BeforeEach
-    void setUp() {
-        serverContainer.start();
-    }
+    @Autowired
+    CourseHelper courseHelper;
 
-    @AfterEach
-    void tearDown() {
-        serverContainer.stop();
-    }
+//    @BeforeEach
+//    void setUp() {
+//        serverContainer.start();
+//    }
+//
+//    @AfterEach
+//    void tearDown() {
+//        serverContainer.stop();
+//    }
 
     @Test
     void saveTeacherSuccess() {
+        Teacher teacher = teacherHelper.saveTeacher("teacher@gmail.com").block();
+        ANSIColors.printBlue(teacher);
+        Assertions.assertEquals("teacher@gmail.com", teacher.getName());
+        Assertions.assertNotNull(teacher.getUserId());
+    }
+
+    @Test
+    void findTeacherSuccess() {
+        Teacher teacher = teacherHelper.saveTeacher("teacher@gmail.com").block();
+        Teacher teacherFind = teacherHelper.findTeacherById(teacher.getId()).block();
+        ANSIColors.printBlue(teacherFind);
+    }
+
+    @Test
+    void addTeacherToCourseSuccess() {
         Teacher teacher = teacherHelper.saveTeacher("teacher@gmail.com").block();
         ANSIColors.printBlue(teacher);
         Assertions.assertEquals("teacher@gmail.com", teacher.getName());

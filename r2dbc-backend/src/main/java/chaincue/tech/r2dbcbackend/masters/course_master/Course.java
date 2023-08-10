@@ -3,23 +3,26 @@ package chaincue.tech.r2dbcbackend.masters.course_master;
 import chaincue.tech.r2dbcbackend.masters.DomainObject;
 import chaincue.tech.r2dbcbackend.masters.teacher_master.Teacher;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Table;
+import reactor.core.publisher.Mono;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
-@Table("courses")
+@Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
+@Table("course")
 public class Course implements DomainObject {
     @Id
     String id;
     String name;
-    @Transient
     List<Teacher> teachers;
     //    List<String> studentCourseRelations;
 //    List<String> teacherCourseRelations;
@@ -31,11 +34,17 @@ public class Course implements DomainObject {
         INACTIVE
     }
 
-    public static Course createCourse(String name) {
-        return new Course(
-                UUID.randomUUID().toString(),
-                name,
-                List.of()
-        );
+    public static Mono<Course> fromRows(List<Map<String, Object>> rows) {
+        return Mono.just(Course.builder()
+                .id(rows.get(0).get("c_id").toString())
+                .name("c_name")
+                .teachers(rows.stream()
+                        .map(Teacher::fromRow)
+                        .filter(Objects::nonNull)
+                        .toList())
+                .build());
     }
+
 }
+
+

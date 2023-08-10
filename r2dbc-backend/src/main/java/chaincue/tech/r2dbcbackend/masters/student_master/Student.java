@@ -9,7 +9,7 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.UUID;
 
-@Table("students")
+@Table("student")
 @AllArgsConstructor
 @Data
 public class Student implements DomainObject {

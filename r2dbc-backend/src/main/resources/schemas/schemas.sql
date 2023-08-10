@@ -1,4 +1,4 @@
-CREATE TABLE users
+CREATE TABLE IF NOT EXISTS users
 (
     id           VARCHAR(255) PRIMARY KEY,
     user_name    VARCHAR(255),
@@ -6,7 +6,7 @@ CREATE TABLE users
     student_id   VARCHAR(255)
 );
 
-CREATE TABLE teachers
+CREATE TABLE IF NOT EXISTS teacher
 (
     id      VARCHAR(255) PRIMARY KEY,
     name    VARCHAR(255),
@@ -14,7 +14,7 @@ CREATE TABLE teachers
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-CREATE TABLE students
+CREATE TABLE IF NOT EXISTS student
 (
     id      VARCHAR(255) PRIMARY KEY,
     name    VARCHAR(255),
@@ -22,17 +22,17 @@ CREATE TABLE students
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-CREATE TABLE courses
+CREATE TABLE IF NOT EXISTS course
 (
     id           VARCHAR(255) PRIMARY KEY,
     name         VARCHAR(255)
 );
 
-CREATE TABLE teacher_course
+CREATE TABLE IF NOT EXISTS teacher_course
 (
-    teacher_id   VARCHAR(255) REFERENCES teachers (id),
-    course_id    VARCHAR(255) REFERENCES courses (id),
-    PRIMARY KEY (teacher_id, course_id)
+    course_id    VARCHAR(255) REFERENCES course (id),
+    teacher_id   VARCHAR(255) REFERENCES teacher (id),
+    PRIMARY KEY (course_id, teacher_id)
 );
 
 

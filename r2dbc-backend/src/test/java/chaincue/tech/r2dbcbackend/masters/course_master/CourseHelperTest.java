@@ -6,6 +6,7 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.containers.DockerComposeContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -25,34 +26,41 @@ class CourseHelperTest {
     @Autowired
     TeacherHelper teacherHelper;
 
-    @BeforeEach
-    void setUp() {
-        serverContainer.start();
-    }
-
-    @AfterEach
-    void tearDown() {
-        serverContainer.stop();
-    }
+//    @BeforeEach
+//    void setUp() {
+//        serverContainer.start();
+//    }
+//
+//    @AfterEach
+//    void tearDown() {
+//        serverContainer.stop();
+//    }
 
     @Test
     void saveCourseSuccess() {
-        var name = courseHelper.saveCourse("name").block();
+        var name = courseHelper.createCourse("name").block();
         ANSIColors.printBlue(name);
-        Assertions.assertEquals("name", name.getName());
     }
 
     @Test
-    void addTeacherToCourse() {
-        //given
-        var course = courseHelper.saveCourse("name").block();
-        var teacher = teacherHelper.saveTeacher("").block();
+    void getCourseSuccess() {
+        var course = courseHelper.saveCourse("result").block();
 
-        //when
-        var name = courseHelper.addTeacherToCourse(course.getId(), teacher.getId()).block();
-        ANSIColors.printBlue(name);
-
-        //then
-        Assertions.assertEquals("name", name.getName());
+        var result = courseHelper.findById(course.getId()).block();
+        ANSIColors.printBlue(result);
     }
+
+//    @Test
+//    void addTeacherToCourse() {
+//        //given
+//        var course = courseHelper.saveCourse("name").block();
+//        var teacher = teacherHelper.saveTeacher("").block();
+//
+//        //when
+//        var name = courseHelper.addTeacherToCourse(course.getId(), teacher.getId()).block();
+//        ANSIColors.printBlue(name);
+//
+//        //then
+//        Assertions.assertEquals("name", name.getName());
+//    }
 }

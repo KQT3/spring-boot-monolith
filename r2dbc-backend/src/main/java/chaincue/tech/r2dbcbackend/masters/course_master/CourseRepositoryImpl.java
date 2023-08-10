@@ -76,14 +76,14 @@ public class CourseRepositoryImpl implements CourseRepository {
                 .then();
     }
 
-    /*TODO  course.setId(UUID.randomUUID().toString()); dont work dosn't add */
     private Mono<Course> saveCourse(Course course) {
         if (course.getId() == null) {
-            return client.sql("INSERT INTO course(name) VALUES(:name)")
+            return client.sql("INSERT INTO course(id, name) VALUES(:id, :name)")
                     .bind("name", course.getName())
                     .bind("id", UUID.randomUUID().toString())
-                    .fetch()
-                    .first()
+                    .filter((statement, executeFunction) -> statement.returnGeneratedValues("id").execute())
+                    .fetch().first()
+                    .doOnNext(result -> course.setId(result.get("id").toString()))
                     .thenReturn(course);
         } else {
             return this.client.sql("UPDATE course SET name = :name WHERE id = :id")

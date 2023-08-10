@@ -12,6 +12,7 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.io.File;
+import java.util.Random;
 
 @Disabled
 @SpringBootTest
@@ -38,7 +39,8 @@ class CourseHelperTest {
 
     @Test
     void saveCourseSuccess() {
-        var name = courseHelper.createCourse("name").block();
+        Random rand = new Random();
+        var name = courseHelper.createCourse("name" + rand.nextInt(1000)).block();
         ANSIColors.printBlue(name);
     }
 

@@ -18,6 +18,7 @@
 	<modules>
 		<module>jpa-backend</module>
 		<module>r2dbc-backend</module>
+		<module>r2dbc-backend-2</module>
 	</modules>
 
 	<properties>

@@ -1,1 +1,1 @@
-# Spring Boot Monolith in Kotlin and Java
+# Spring Boot in Kotlin and Java

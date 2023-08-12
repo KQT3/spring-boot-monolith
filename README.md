@@ -1,3 +1,1 @@
-# spring-boot-monolith
-
-https://neilwhite.ca/joins-with-spring-data-r2dbc/
+# Spring Boot Monolith in Kotlin and Java

@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>chaincue.tech</groupId>
-    <artifactId>spring-boot-monolith</artifactId>
+    <artifactId>java</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>spring-boot-monolith</name>
-    <description>spring-boot-monolith</description>
+    <name>java</name>
+    <description>java</description>
     <packaging>pom</packaging>
 
     <modules>

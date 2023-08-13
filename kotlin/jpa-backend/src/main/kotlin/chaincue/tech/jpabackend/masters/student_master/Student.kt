@@ -24,7 +24,7 @@ data class Student(
                 id = UUID.randomUUID().toString(),
                 name = username,
                 user = user,
-                mutableListOf()
+                studentCourseRelations = mutableListOf()
         )
     }
 

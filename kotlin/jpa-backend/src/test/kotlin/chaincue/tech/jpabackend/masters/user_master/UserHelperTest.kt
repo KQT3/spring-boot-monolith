@@ -27,5 +27,8 @@ class UserHelperTest(@Autowired val userHelper: UserHelper) {
 
     @Test
     fun findUser() {
+        val user = User.create("username")
+        val result = userHelper.save(user)
+        ANSIColors.printBlue(result)
     }
 }

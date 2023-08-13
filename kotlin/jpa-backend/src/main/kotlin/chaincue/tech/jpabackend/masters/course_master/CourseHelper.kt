@@ -32,17 +32,16 @@ class CourseHelper(
         return course
     }
 
-//    @Transactional
-//    fun addStudentToCourse(courseId: String, studentId: String): Course {
-//        val course = courseRepository.findById(courseId).orElseThrow { RuntimeException("Course not found.") }
-//        val student = studentRepository.findById(studentId).orElseThrow { RuntimeException("Student not found.") }
-//
-////        course.studentCourseRelations.add(student)
-//        student.studentCourseRelations.add(course)
-//
-//        courseRepository.save(course)
-//        studentRepository.save(student)
-//
-//        return course
-//    }
+    @Transactional
+    fun addStudentToCourse(courseId: String, studentId: String): Course {
+        val course = courseRepository.findById(courseId).orElseThrow { RuntimeException("Course not found.") }
+        val student = studentRepository.findById(studentId).orElseThrow { RuntimeException("Student not found.") }
+        course.studentCourseRelations.add(student)
+        student.studentCourseRelations.add(course)
+
+        courseRepository.save(course)
+        studentRepository.save(student)
+
+        return course
+    }
 }

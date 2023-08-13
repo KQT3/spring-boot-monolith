@@ -43,12 +43,13 @@ class CourseHelperTest(
         ANSIColors.printBlue(result)
     }
 
-//    @Test
-//    @Transactional
-//    fun addStudentToCourse() {
-//        val course = courseHelper.save("name")
-//        val student = studentHelper.save("name")
-//        val result = courseHelper.addStudentToCourse(course.id, student.id)
-//        ANSIColors.printBlue(result)
-//    }
+    @Test
+    @Transactional
+    @Commit
+    fun addStudentToCourse() {
+        val course = courseHelper.save("name")
+        val student = studentHelper.save("name")
+        val result = courseHelper.addStudentToCourse(course.id, student.id)
+        ANSIColors.printBlue(result)
+    }
 }

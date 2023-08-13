@@ -6,8 +6,6 @@ import lombok.EqualsAndHashCode
 import lombok.ToString
 import java.util.UUID
 
-@ToString
-@EqualsAndHashCode(exclude = ["user", "teacherCourseRelations"])
 @Entity(name = "teachers")
 data class Teacher(
         @Id
@@ -31,10 +29,10 @@ data class Teacher(
                 teacherCourseRelations = mutableListOf()
         )
     }
-//
-//    override fun toString(): String {
-//        return "Teacher(id='$id', name='$name')"
-//    }
+
+    override fun toString(): String {
+        return "Teacher(id='$id', name='$name')"
+    }
 
 
 }

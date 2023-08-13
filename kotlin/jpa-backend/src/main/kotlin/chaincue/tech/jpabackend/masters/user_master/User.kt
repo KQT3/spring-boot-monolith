@@ -11,8 +11,6 @@ import lombok.ToString
 import java.util.*
 
 @Entity(name = "users")
-//@EqualsAndHashCode(exclude = ["teacher", "student"])
-@ToString(exclude = ["teacher", "student"])
 data class User(
         @Id
         val id: String,
@@ -30,11 +28,9 @@ data class User(
                 student = null
         )
     }
-    override fun hashCode(): Int {
-        return id.hashCode()
+
+    override fun toString(): String {
+        return "User(id='$id', userName='$userName')"
     }
-//    override fun toString(): String {
-//        return "User(id='$id', userName='$userName')"
-//    }
 
 }

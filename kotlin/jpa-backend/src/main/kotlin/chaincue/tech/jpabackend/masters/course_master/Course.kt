@@ -6,7 +6,6 @@ import jakarta.persistence.ManyToMany
 import lombok.ToString
 import java.util.*
 
-@ToString(exclude = ["teacherCourseRelations", "studentCourseRelations"])
 @Entity(name = "courses")
 data class Course(
         @Id
@@ -14,8 +13,8 @@ data class Course(
         val name: String,
         @ManyToMany(mappedBy = "teacherCourseRelations")
         val teacherCourseRelations: MutableList<Teacher>,
-//        @ManyToMany(mappedBy = "studentCourseRelations")
-//        val studentCourseRelations: MutableList<Student>
+        @ManyToMany(mappedBy = "studentCourseRelations")
+        val studentCourseRelations: MutableList<Student>
 
 ) {
     companion object {
@@ -23,7 +22,7 @@ data class Course(
                 id = UUID.randomUUID().toString(),
                 name = username,
                 teacherCourseRelations = mutableListOf(),
-//                studentCourseRelations = mutableListOf()
+                studentCourseRelations = mutableListOf()
         )
     }
 

@@ -39,8 +39,8 @@ class CourseHelperTest(
     fun addTeacherToCourse() {
         val course = courseHelper.save("names")
         val teacher = teacherHelper.save("name")
-        val (name) = courseHelper.addTeacherToCourse(course.id, teacher.id)
-        ANSIColors.printBlue(name)
+        val result = courseHelper.addTeacherToCourse(course.id, teacher.id)
+        ANSIColors.printBlue(result)
     }
 
 //    @Test

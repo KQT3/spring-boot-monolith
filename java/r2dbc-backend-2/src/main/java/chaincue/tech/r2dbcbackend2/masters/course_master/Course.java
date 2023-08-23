@@ -9,6 +9,7 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.ReadOnlyProperty;
 import org.springframework.data.relational.core.mapping.Table;
+import org.springframework.lang.NonNull;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -19,30 +20,25 @@ import java.util.UUID;
 @Data
 public class Course implements DomainObject {
     @Id
-    String id;
-    String version;
-    String name;
-    String description;
-    int events;
-    String schoolName;
-    Status status;
-    LocalDate startDate;
-    LocalDate endDate;
+    @NonNull
+    private String id;
+    private String version;
+    @NonNull
+    private String name;
+    private String description;
+    private int events;
+    private String schoolName;
+    private Status status;
+    private LocalDate startDate;
+    private LocalDate endDate;
     @ReadOnlyProperty
-    List<Teacher> teachers;
+    private List<Teacher> teachers;
     @ReadOnlyProperty
-    List<Student> students;
+    private List<Student> students;
     @ReadOnlyProperty
-    List<Unit> units;
+    private List<Unit> units;
     @ReadOnlyProperty
     List<String> materialRelations;
-
-    public enum Status {
-        WIP,
-        ACTIVE,
-        COMPLETE,
-        INACTIVE
-    }
 
     public static Course create(String name) {
         return new Course(
@@ -60,5 +56,20 @@ public class Course implements DomainObject {
                 List.of(),
                 List.of()
         );
+    }
+
+    public enum Status {
+        WIP,
+        ACTIVE,
+        COMPLETE,
+        INACTIVE
+    }
+
+    public enum ChangeFieldName {
+        TITLE,
+        DESCRIPTION,
+        START_DATE,
+        END_DATE,
+        STATUS;
     }
 }

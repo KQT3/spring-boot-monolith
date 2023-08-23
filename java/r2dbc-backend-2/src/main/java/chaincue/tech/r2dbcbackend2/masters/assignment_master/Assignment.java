@@ -5,7 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.ReadOnlyProperty;
+import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
+import org.springframework.lang.NonNull;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -16,15 +18,16 @@ import java.util.UUID;
 @Data
 public class Assignment implements DomainObject {
     @Id
+    @NonNull
     String id;
     String version;
     String name;
     String assignmentType;
+    @Column("unit_id")
     String unitId;
     String assignmentTypeId;
     int events;
     LocalDate createdAt;
-
     @ReadOnlyProperty
     List<String> materialRelations;
 

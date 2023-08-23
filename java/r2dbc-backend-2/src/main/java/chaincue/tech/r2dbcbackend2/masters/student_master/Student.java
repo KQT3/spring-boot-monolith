@@ -7,6 +7,7 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.ReadOnlyProperty;
 import org.springframework.data.relational.core.mapping.Table;
+import org.springframework.lang.NonNull;
 
 import java.util.List;
 import java.util.UUID;
@@ -16,6 +17,7 @@ import java.util.UUID;
 @Data
 public class Student implements DomainObject {
     @Id
+    @NonNull
     String id;
     String version;
     String name;

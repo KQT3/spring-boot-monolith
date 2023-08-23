@@ -3,10 +3,10 @@ package chaincue.tech.r2dbcbackend2.masters.material_master;
 import chaincue.tech.r2dbcbackend2.masters.DomainObject;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NonNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.ReadOnlyProperty;
 import org.springframework.data.relational.core.mapping.Table;
+import org.springframework.lang.NonNull;
 
 import java.util.List;
 import java.util.UUID;
@@ -16,6 +16,7 @@ import java.util.UUID;
 @Data
 public class Material implements DomainObject {
     @Id
+    @NonNull
     String id;
     String version;
     String name;
@@ -26,8 +27,6 @@ public class Material implements DomainObject {
     int events;
     @ReadOnlyProperty
     List<String> materialRelations;
-//    @Singular
-//    List<Identifier> tags;
 
     public enum MaterialType {
         VIDEO,

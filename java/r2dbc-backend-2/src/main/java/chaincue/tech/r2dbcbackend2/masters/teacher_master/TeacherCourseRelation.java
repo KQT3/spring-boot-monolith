@@ -6,6 +6,7 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
+import org.springframework.lang.NonNull;
 
 import java.util.UUID;
 
@@ -14,14 +15,15 @@ import java.util.UUID;
 @AllArgsConstructor
 public class TeacherCourseRelation implements DomainObject {
     @Id
-    String id;
-    String version;
+    @NonNull
+    private String id;
+    private String version;
     @Column("teacher_id")
     private String teacherId;
     @Column("course_id")
     private String courseId;
-    TeacherCourseRelationStatus teacherCourseRelationStatus;
-    int events;
+    private TeacherCourseRelationStatus teacherCourseRelationStatus;
+    private int events;
 
     public static TeacherCourseRelation create(String teacherId, String courseId) {
         return new TeacherCourseRelation(

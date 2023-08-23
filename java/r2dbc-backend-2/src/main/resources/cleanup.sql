@@ -1,0 +1,13 @@
+TRUNCATE material_relations CASCADE;
+TRUNCATE teacher_course_relations CASCADE;
+TRUNCATE student_course_relations CASCADE;
+TRUNCATE unit_course_relations CASCADE;
+TRUNCATE unit_tag_relations CASCADE;
+TRUNCATE assignments CASCADE;
+TRUNCATE units CASCADE;
+TRUNCATE courses CASCADE;
+TRUNCATE tags CASCADE;
+TRUNCATE materials CASCADE;
+TRUNCATE users CASCADE;
+TRUNCATE teachers CASCADE;
+TRUNCATE students CASCADE;

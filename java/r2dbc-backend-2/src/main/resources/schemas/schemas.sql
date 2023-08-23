@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS teachers
 (
-    id      VARCHAR(255) PRIMARY KEY,
+    id      VARCHAR(255) NOT NULL PRIMARY KEY,
     version VARCHAR(255),
     name    VARCHAR(255),
     events  INT,
@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS teachers
 
 CREATE TABLE IF NOT EXISTS students
 (
-    id      VARCHAR(255) PRIMARY KEY,
+    id      VARCHAR(255) NOT NULL PRIMARY KEY,
     version VARCHAR(255),
     name    VARCHAR(255),
     events  INT,
@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS students
 
 CREATE TABLE IF NOT EXISTS users
 (
-    id           VARCHAR(255) PRIMARY KEY,
+    id           VARCHAR(255) NOT NULL PRIMARY KEY,
     version      VARCHAR(255),
     user_name    VARCHAR(255),
     password     VARCHAR(255),
@@ -36,9 +36,9 @@ CREATE TABLE IF NOT EXISTS users
 
 CREATE TABLE IF NOT EXISTS courses
 (
-    id          VARCHAR(255) PRIMARY KEY,
+    id          VARCHAR(255) NOT NULL PRIMARY KEY,
     version     VARCHAR(255),
-    name        VARCHAR(255),
+    name        VARCHAR(255) NOT NULL,
     description VARCHAR(255),
     events      INT,
     school_name VARCHAR(255),
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS courses
 
 CREATE TABLE IF NOT EXISTS teacher_course_relations
 (
-    id                             VARCHAR(255) PRIMARY KEY,
+    id                             VARCHAR(255) NOT NULL PRIMARY KEY,
     version                        VARCHAR(255),
     teacher_id                     VARCHAR(255) REFERENCES teachers (id),
     course_id                      VARCHAR(255) REFERENCES courses (id),
@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS teacher_course_relations
 
 CREATE TABLE IF NOT EXISTS student_course_relations
 (
-    id                             VARCHAR(255) PRIMARY KEY,
+    id                             VARCHAR(255) NOT NULL PRIMARY KEY ,
     version                        VARCHAR(255),
     student_id                     VARCHAR(255) REFERENCES students (id),
     course_id                      VARCHAR(255) REFERENCES courses (id),
@@ -67,9 +67,16 @@ CREATE TABLE IF NOT EXISTS student_course_relations
     events                         INT
 );
 
+CREATE TABLE tags
+(
+    id      VARCHAR(255) NOT NULL PRIMARY KEY,
+    version VARCHAR(255),
+    name    VARCHAR(255)
+);
+
 CREATE TABLE IF NOT EXISTS units
 (
-    id          VARCHAR(255) PRIMARY KEY,
+    id          VARCHAR(255) NOT NULL PRIMARY KEY,
     version     VARCHAR(255) NOT NULL,
     name        VARCHAR(255) NOT NULL,
     description TEXT,
@@ -78,7 +85,7 @@ CREATE TABLE IF NOT EXISTS units
 
 CREATE TABLE IF NOT EXISTS unit_course_relations
 (
-    id        VARCHAR(255) PRIMARY KEY,
+    id        VARCHAR(255) NOT NULL PRIMARY KEY,
     version   VARCHAR(255) NOT NULL,
     unit_id   VARCHAR(255) NOT NULL REFERENCES units (id),
     course_id VARCHAR(255) NOT NULL REFERENCES courses (id),
@@ -86,9 +93,17 @@ CREATE TABLE IF NOT EXISTS unit_course_relations
     events    INT
 );
 
+CREATE TABLE IF NOT EXISTS unit_tag_relations
+(
+    id      VARCHAR(255) NOT NULL PRIMARY KEY,
+    version VARCHAR(255) NOT NULL,
+    unit_id VARCHAR(255) NOT NULL REFERENCES units (id),
+    tag_id  VARCHAR(255) NOT NULL REFERENCES tags (id)
+);
+
 CREATE TABLE IF NOT EXISTS assignments
 (
-    id                 VARCHAR(255) PRIMARY KEY,
+    id                 VARCHAR(255) NOT NULL PRIMARY KEY,
     version            VARCHAR(255),
     name               VARCHAR(255),
     assignment_type    VARCHAR(255),
@@ -101,7 +116,7 @@ CREATE TABLE IF NOT EXISTS assignments
 
 CREATE TABLE IF NOT EXISTS materials
 (
-    id            VARCHAR(255) PRIMARY KEY,
+    id            VARCHAR(255) NOT NULL PRIMARY KEY,
     version       VARCHAR(255) NOT NULL,
     name          VARCHAR(255) NOT NULL,
     material_type VARCHAR(50)  NOT NULL,
@@ -111,16 +126,9 @@ CREATE TABLE IF NOT EXISTS materials
     events        INT          NOT NULL
 );
 
-CREATE TABLE tags
-(
-    id      VARCHAR(255) PRIMARY KEY,
-    version VARCHAR(255),
-    name    VARCHAR(255)
-);
-
 CREATE TABLE IF NOT EXISTS material_relations
 (
-    id            VARCHAR(255) PRIMARY KEY,
+    id            VARCHAR(255) NOT NULL PRIMARY KEY,
     material_id   VARCHAR(255) REFERENCES materials (id),
     course_id     VARCHAR(255) REFERENCES courses (id),
     unit_id       VARCHAR(255) REFERENCES units (id),
@@ -129,5 +137,4 @@ CREATE TABLE IF NOT EXISTS material_relations
     relation_type VARCHAR(50) NOT NULL,
     events        INT
 );
-
 

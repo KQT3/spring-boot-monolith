@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: kp
+      changes:
+        - dropColumn:
+            tableName: teachers
+            columnName: version

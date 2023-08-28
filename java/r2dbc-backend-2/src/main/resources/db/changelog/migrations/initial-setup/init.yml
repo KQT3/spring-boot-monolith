@@ -1,0 +1,518 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: kp
+      changes:
+        - createTable:
+            tableName: teachers
+            columns:
+              - column:
+                  name: id
+                  type: VARCHAR(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: version
+                  type: VARCHAR(255)
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: events
+                  type: INT
+              - column:
+                  name: user_id
+                  type: VARCHAR(255)
+
+  - changeSet:
+      id: 2
+      author: kp
+      changes:
+        - createTable:
+            tableName: students
+            columns:
+              - column:
+                  name: id
+                  type: VARCHAR(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: version
+                  type: VARCHAR(255)
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: events
+                  type: INT
+              - column:
+                  name: user_id
+                  type: VARCHAR(255)
+
+  - changeSet:
+      id: 3
+      author: kp
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: VARCHAR(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: version
+                  type: VARCHAR(255)
+              - column:
+                  name: user_name
+                  type: VARCHAR(255)
+              - column:
+                  name: password
+                  type: VARCHAR(255)
+              - column:
+                  name: teacher_id
+                  type: VARCHAR(255)
+              - column:
+                  name: student_id
+                  type: VARCHAR(255)
+              - column:
+                  name: events
+                  type: INT
+              - column:
+                  name: first_name
+                  type: VARCHAR(255)
+              - column:
+                  name: last_name
+                  type: VARCHAR(255)
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+              - column:
+                  name: gender
+                  type: VARCHAR(10)
+              - column:
+                  name: phone_number
+                  type: VARCHAR(20)
+        - addForeignKeyConstraint:
+            constraintName: fk_users_teachers
+            baseTableName: users
+            baseColumnNames: teacher_id
+            referencedTableName: teachers
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            constraintName: fk_users_students
+            baseTableName: users
+            baseColumnNames: student_id
+            referencedTableName: students
+            referencedColumnNames: id
+
+  - changeSet:
+      id: 4
+      author: kp
+      changes:
+        - createTable:
+            tableName: courses
+            columns:
+              - column:
+                  name: id
+                  type: VARCHAR(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: version
+                  type: VARCHAR(255)
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: VARCHAR(255)
+              - column:
+                  name: events
+                  type: INT
+              - column:
+                  name: school_name
+                  type: VARCHAR(255)
+              - column:
+                  name: status
+                  type: VARCHAR(20)
+              - column:
+                  name: start_date
+                  type: DATE
+              - column:
+                  name: end_date
+                  type: DATE
+
+  - changeSet:
+      id: 5
+      author: kp
+      changes:
+        - createTable:
+            tableName: teacher_course_relations
+            columns:
+              - column:
+                  name: id
+                  type: VARCHAR(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: version
+                  type: VARCHAR(255)
+              - column:
+                  name: teacher_id
+                  type: VARCHAR(255)
+                  constraints:
+                    references: teachers(id)
+                    foreignKeyName: fk_teacher_course_relations_teacher_id
+              - column:
+                  name: course_id
+                  type: VARCHAR(255)
+                  constraints:
+                    references: courses(id)
+                    foreignKeyName: fk_teacher_course_relations_course_id
+              - column:
+                  name: teacher_course_relation_status
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: events
+                  type: INT
+
+  - changeSet:
+      id: 6
+      author: kp
+      changes:
+        - createTable:
+            tableName: student_course_relations
+            columns:
+              - column:
+                  name: id
+                  type: VARCHAR(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: version
+                  type: VARCHAR(255)
+              - column:
+                  name: student_id
+                  type: VARCHAR(255)
+                  constraints:
+                    references: students(id)
+                    foreignKeyName: fk_student_course_relations_student_id
+              - column:
+                  name: course_id
+                  type: VARCHAR(255)
+                  constraints:
+                    references: courses(id)
+                    foreignKeyName: fk_student_course_relations_course_id
+              - column:
+                  name: student_course_relation_status
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: events
+                  type: INT
+
+  - changeSet:
+      id: 7
+      author: kp
+      changes:
+        - createTable:
+            tableName: tags
+            columns:
+              - column:
+                  name: id
+                  type: VARCHAR(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: version
+                  type: VARCHAR(255)
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+
+  - changeSet:
+      id: 8
+      author: kp
+      changes:
+        - createTable:
+            tableName: units
+            columns:
+              - column:
+                  name: id
+                  type: VARCHAR(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: version
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: TEXT
+              - column:
+                  name: events
+                  type: INT
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: 9
+      author: kp
+      changes:
+        - createTable:
+            tableName: unit_course_relations
+            columns:
+              - column:
+                  name: id
+                  type: VARCHAR(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: version
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: unit_id
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: course_id
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: events
+                  type: INT
+        - addForeignKeyConstraint:
+            baseTableName: unit_course_relations
+            baseColumnNames: unit_id
+            referencedTableName: units
+            referencedColumnNames: id
+            constraintName: fk_unit_course_relations_unit_id
+        - addForeignKeyConstraint:
+            baseTableName: unit_course_relations
+            baseColumnNames: course_id
+            referencedTableName: courses
+            referencedColumnNames: id
+            constraintName: fk_unit_course_relations_course_id
+
+  - changeSet:
+      id: 10
+      author: kp
+      changes:
+        - createTable:
+            tableName: unit_tag_relations
+            columns:
+              - column:
+                  name: id
+                  type: VARCHAR(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: version
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: unit_id
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: tag_id
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: unit_tag_relations
+            baseColumnNames: unit_id
+            referencedTableName: units
+            referencedColumnNames: id
+            constraintName: fk_unit_tag_relations_unit_id
+        - addForeignKeyConstraint:
+            baseTableName: unit_tag_relations
+            baseColumnNames: tag_id
+            referencedTableName: tags
+            referencedColumnNames: id
+            constraintName: fk_unit_tag_relations_tag_id
+  - changeSet:
+      id: 11
+      author: kp
+      changes:
+        - createTable:
+            tableName: assignments
+            columns:
+              - column:
+                  name: id
+                  type: VARCHAR(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: version
+                  type: VARCHAR(255)
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: assignment_type
+                  type: VARCHAR(255)
+              - column:
+                  name: unit_id
+                  type: VARCHAR(255)
+              - column:
+                  name: assignment_type_id
+                  type: VARCHAR(255)
+              - column:
+                  name: events
+                  type: INT
+              - column:
+                  name: created_at
+                  type: DATE
+        - addForeignKeyConstraint:
+            baseTableName: assignments
+            baseColumnNames: unit_id
+            referencedTableName: units
+            referencedColumnNames: id
+            constraintName: fk_assignments_unit_id
+
+  - changeSet:
+      id: 12
+      author: kp
+      changes:
+        - createTable:
+            tableName: materials
+            columns:
+              - column:
+                  name: id
+                  type: VARCHAR(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: version
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: material_type
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: TEXT
+              - column:
+                  name: uri
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: uploaded
+                  type: BOOLEAN
+                  constraints:
+                    nullable: false
+              - column:
+                  name: events
+                  type: INT
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 13
+      author: kp
+      changes:
+        - createTable:
+            tableName: material_relations
+            columns:
+              - column:
+                  name: id
+                  type: VARCHAR(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: material_id
+                  type: VARCHAR(255)
+              - column:
+                  name: course_id
+                  type: VARCHAR(255)
+              - column:
+                  name: unit_id
+                  type: VARCHAR(255)
+              - column:
+                  name: assignment_id
+                  type: VARCHAR(255)
+              - column:
+                  name: tag_id
+                  type: VARCHAR(255)
+              - column:
+                  name: relation_type
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: events
+                  type: INT
+        - addForeignKeyConstraint:
+            baseTableName: material_relations
+            baseColumnNames: material_id
+            referencedTableName: materials
+            referencedColumnNames: id
+            constraintName: fk_material_relations_material_id
+        - addForeignKeyConstraint:
+            baseTableName: material_relations
+            baseColumnNames: course_id
+            referencedTableName: courses
+            referencedColumnNames: id
+            constraintName: fk_material_relations_course_id
+        - addForeignKeyConstraint:
+            baseTableName: material_relations
+            baseColumnNames: unit_id
+            referencedTableName: units
+            referencedColumnNames: id
+            constraintName: fk_material_relations_unit_id
+        - addForeignKeyConstraint:
+            baseTableName: material_relations
+            baseColumnNames: assignment_id
+            referencedTableName: assignments
+            referencedColumnNames: id
+            constraintName: fk_material_relations_assignment_id
+        - addForeignKeyConstraint:
+            baseTableName: material_relations
+            baseColumnNames: tag_id
+            referencedTableName: tags
+            referencedColumnNames: id
+            constraintName: fk_material_relations_tag_id

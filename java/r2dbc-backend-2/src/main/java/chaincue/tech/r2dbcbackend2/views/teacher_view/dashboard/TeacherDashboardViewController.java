@@ -1,6 +1,7 @@
 package chaincue.tech.r2dbcbackend2.views.teacher_view.dashboard;
 
 import chaincue.tech.r2dbcbackend2.masters.course_master.Course;
+import chaincue.tech.r2dbcbackend2.masters.course_master.CourseHelper;
 import chaincue.tech.r2dbcbackend2.masters.course_master.CourseService;
 import chaincue.tech.r2dbcbackend2.masters.student_master.Student;
 import chaincue.tech.r2dbcbackend2.masters.student_master.StudentService;
@@ -29,32 +30,17 @@ import static chaincue.tech.r2dbcbackend2.utilities.JWTDecoderUtil.getSubIdFromT
 public class TeacherDashboardViewController {
     private final TeacherService teacherService;
     private final StudentService studentService;
-    private final CourseService courseService;
+    private final CourseHelper courseHelper;
 
     @GetMapping
     public Mono<TeacherDashboardViewDTO> dashboardView(@RequestHeader("Authorization") String token) {
         log.info("dashboardView");
         return teacherService.getOrCreateTeacher(getSubIdFromToken(token))
                 .map(Param::new)
-                .flatMap(param -> Mono.zip(
-                                setStudents(param),
-                                setCourses(param),
-                                setTeachers(param)
-                        )
-                        .thenReturn(param))
+                .flatMap(studentService.updateParamWithStudents(Param::setStudents))
+                .flatMap(courseHelper.updateParamWithCourses(Param::setCourses))
+                .flatMap(teacherService.updateParamWithTeachers(Param::setTeachers))
                 .map(TeacherDashboardViewController::toDTO);
-    }
-
-    private Mono<Param> setStudents(Param param) {
-        return studentService.findAll().collectList().doOnNext(param::setStudents).thenReturn(param);
-    }
-
-    private Mono<Param> setCourses(Param param) {
-        return courseService.findAllWithRelations().collectList().doOnNext(param::setCourses).thenReturn(param);
-    }
-
-    private Mono<Param> setTeachers(Param param) {
-        return teacherService.findAll().collectList().doOnNext(param::setTeachers).thenReturn(param);
     }
 
     private static TeacherDashboardViewDTO toDTO(Param param) {

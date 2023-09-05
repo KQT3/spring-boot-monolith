@@ -9,6 +9,8 @@ import chaincue.tech.r2dbcbackend2.masters.student_master.repositories.StudentCo
 import chaincue.tech.r2dbcbackend2.masters.student_master.repositories.StudentRepository;
 import chaincue.tech.r2dbcbackend2.masters.user_master.User;
 import chaincue.tech.r2dbcbackend2.masters.user_master.UserRepository;
+import chaincue.tech.r2dbcbackend2.views.teacher_view.dashboard.TeacherDashboardViewController;
+import chaincue.tech.r2dbcbackend2.views.teacher_view.dashboard.TeacherDashboardViewDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +19,8 @@ import reactor.core.publisher.Mono;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
 
 @Service
 @AllArgsConstructor
@@ -105,5 +109,12 @@ public class StudentService implements StudentContract {
                     return Arrays.stream(searchValues).anyMatch(val -> student.getName().toLowerCase().contains(val.toLowerCase()));
                 })
                 .flatMap(this::fetchCoursesForStudent);
+    }
+
+    public <P> Function<P, Mono<P>> updateParamWithStudents(BiConsumer<P, List<Student>> setStudents) {
+        return param -> findAllWithRelations()
+                .collectList()
+                .doOnNext(students -> setStudents.accept(param, students))
+                .thenReturn(param);
     }
 }

@@ -15,6 +15,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
 
 @Service
 @AllArgsConstructor
@@ -92,5 +94,12 @@ public class TeacherService implements TeacherContract {
     @Override
     public Flux<Teacher> findAll() {
         return teacherRepository.findAll();
+    }
+
+    public <P> Function<P, Mono<P>> updateParamWithTeachers(BiConsumer<P, List<Teacher>> setTeachers) {
+        return param -> findAll()
+                .collectList()
+                .doOnNext(teachers -> setTeachers.accept(param, teachers))
+                .thenReturn(param);
     }
 }

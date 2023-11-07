@@ -25,7 +25,7 @@ public class HomePage {
     private final HouseHelper houseHelper;
     private final CountryHelper countryHelper;
 
-    @GetMapping("")
+    @GetMapping
     public ResponseEntity<HomePageDTO> homePage(@RequestHeader("Authorization") String token) {
         log.info("HomePage");
         log.info("token: {}", token);

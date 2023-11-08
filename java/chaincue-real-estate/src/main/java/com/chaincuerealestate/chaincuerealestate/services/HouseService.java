@@ -16,7 +16,7 @@ public class HouseService implements HouseServiceI {
 
     @Override
     public House save(House.HouseTypes houseTypes) {
-        var houseImage = House.create(houseTypes, AweS3Urls.URL1);
+        var houseImage = House.create(houseTypes, AweS3Urls.URLFrontImage1);
         return houseRepository.save(houseImage);
     }
 

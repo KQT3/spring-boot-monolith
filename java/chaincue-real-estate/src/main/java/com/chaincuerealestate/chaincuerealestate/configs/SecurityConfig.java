@@ -31,7 +31,8 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(exchange -> exchange
                         .requestMatchers(HttpMethod.OPTIONS).permitAll()
-//                        .requestMatchers("/home").anonymous()
+                        .requestMatchers("/home").permitAll()
+                        .requestMatchers("/houses").permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())))
@@ -42,11 +43,6 @@ public class SecurityConfig {
         JwtAuthenticationConverter jwtConverter = new JwtAuthenticationConverter();
         jwtConverter.setJwtGrantedAuthoritiesConverter(new KeycloakRealmRoleConverter());
         return jwtConverter;
-    }
-
-    @Bean
-    public WebSecurityCustomizer ignoringCustomizer() {
-        return (web) -> web.ignoring().requestMatchers("/home");
     }
 
 }

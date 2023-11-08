@@ -31,6 +31,7 @@ public class House {
     @OneToOne(cascade = CascadeType.ALL)
     private Broker broker;
 
+    /*TODO add created and mock data*/
     public enum HouseTypes {
         CONDOMINIUM,
         VILLA,

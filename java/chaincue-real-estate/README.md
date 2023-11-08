@@ -12,3 +12,5 @@ docker exec -it postgres-monolith psql -U admin -d postgres -c "CREATE DATABASE 
 ```
 spring.security.oauth2.client.registration.keycloak.client-secret=
 ```
+
+docker run --rm -it --network host -v ${PWD}:/workdir -w /workdir maven:3.9.5-amazoncorretto-21-debian bash

@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-@ConfigurationProperties(prefix = "teacher-portal-client.cors")
+@ConfigurationProperties(prefix = "chaincue-real-estate.cors")
 @Getter
 @Setter
 @Order(Ordered.HIGHEST_PRECEDENCE)
@@ -34,7 +34,6 @@ public class CorsConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("*/**")
-                .setCacheControl(CacheControl.noCache());
+        registry.addResourceHandler("*/**").setCacheControl(CacheControl.noCache());
     }
 }

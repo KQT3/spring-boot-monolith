@@ -26,14 +26,13 @@ public class HomePage {
     private final CountryHelper countryHelper;
 
     @GetMapping
-    public ResponseEntity<HomePageDTO> homePage(@RequestHeader("Authorization") String token) {
+    public ResponseEntity<HomePageDTO> homePage() {
         log.info("HomePage");
-        log.info("token: {}", token);
-        var toDTO = toHomePageDTO(token, Optional.empty());
+        var toDTO = toHomePageDTO(Optional.empty());
         return ResponseEntity.ok(toDTO);
     }
 
-    private HomePageDTO toHomePageDTO(String token, Optional<Function<DTOBuilder, DTOBuilder>> additionalProcessing) {
+    private HomePageDTO toHomePageDTO(Optional<Function<DTOBuilder, DTOBuilder>> additionalProcessing) {
         return Stream.of(new DTOBuilder())
                 .map(additionalProcessing.orElseGet(Function::identity))
                 .map(countryHelper.updateDTOBuilderWithCountries(DTOBuilder::setCountries))
@@ -62,7 +61,7 @@ public class HomePage {
                 house.getNumberRooms(),
                 house.getBeds(),
                 house.getPrice(),
-                house.getPrice(),
+                "₿32.346",
                 house.getSrc()
         );
     }
@@ -73,6 +72,10 @@ public class HomePage {
         private List<House> houses = new ArrayList<>();
 
         public DTOBuilder() {
+        }
+
+        List<House> getHouses() {
+            return houses.subList(0, 6);
         }
     }
 

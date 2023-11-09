@@ -2,7 +2,7 @@
 
 [//]: # (![Alt text]&#40;db.png&#41;)
 
-<img src="db.png" alt="Alt text" width="300" height="200" />
+<img src="db.png" alt="Alt text" width="500" height="500" />
 
 ```
 docker-compose up -d

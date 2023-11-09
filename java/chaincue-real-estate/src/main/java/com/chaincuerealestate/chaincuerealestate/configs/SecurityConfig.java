@@ -1,5 +1,6 @@
 package com.chaincuerealestate.chaincuerealestate.configs;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -30,13 +31,17 @@ public class SecurityConfig {
         return http
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(exchange -> exchange
-                        .requestMatchers(HttpMethod.OPTIONS).permitAll()
                         .requestMatchers("/home").permitAll()
                         .requestMatchers("/houses").permitAll()
                         .requestMatchers("/house/**").permitAll()
+                        .requestMatchers("/account").hasRole("user")
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())))
+                .exceptionHandling(handler -> {
+                    handler.accessDeniedHandler((request, response, accessDeniedException) -> response.sendError(403));
+                    handler.authenticationEntryPoint((request, response, authException) -> response.sendError(401));
+                })
                 .build();
     }
 

@@ -1,5 +1,8 @@
 # Setup
 
+![Alt text](db.png)
+
+
 ```
 docker-compose up -d
 docker exec -it postgres-monolith psql -U admin -d postgres

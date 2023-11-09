@@ -1,7 +1,5 @@
 # Setup
 
-<img src="db.png" alt="Alt text" width="700" height="1000" />
-
 ```
 docker-compose up -d
 docker exec -it postgres-monolith psql -U admin -d postgres

@@ -11,9 +11,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @RestController
@@ -75,7 +77,10 @@ public class HomePage {
         }
 
         List<House> getHouses() {
-            return houses.subList(0, 6);
+            return houses.stream()
+                    .sorted(Comparator.comparing(House::getTimestamp).reversed())
+                    .limit(6)
+                    .collect(Collectors.toList());
         }
     }
 

@@ -1,15 +1,31 @@
 package com.chaincuerealestate.chaincuerealestate.routes.house;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+public record HousePageDTO(
+        String id,
+        String title,
+        String type,
+        String location,
+        int numberOfRooms,
+        int beds,
+        String dollarPrice,
+        String cryptoPrice,
+        String description,
+        HouseImage[] images,
+        Broker broker
+) {
 
-@RestController
-@RequestMapping("house")
-@RequiredArgsConstructor
-@Slf4j
-@CrossOrigin(origins = "*")
-public class HousePageDTO {
+    public record HouseImage(
+            String id,
+            String url
+    ) {
+    }
+
+    public record Broker(
+            String id,
+            String name,
+            String phoneNumber,
+            String email
+    ) {
+    }
+
 }

@@ -1,4 +1,4 @@
- CREATE TABLE IF NOT EXISTS broker
+CREATE TABLE IF NOT EXISTS broker
 (
     id           VARCHAR(36) PRIMARY KEY,
     name         VARCHAR(255),
@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS house
 (
     id           VARCHAR(36) PRIMARY KEY,
     title        VARCHAR(255),
+    description  VARCHAR(255),
     location     VARCHAR(255),
     number_rooms INT,
     beds         INT,
@@ -24,6 +25,7 @@ CREATE TABLE IF NOT EXISTS house
     sold         BOOLEAN,
     house_types  VARCHAR(50)  NOT NULL,
     broker_id    VARCHAR(36),
+    created      TIMESTAMP,
     CONSTRAINT FK_BROKER FOREIGN KEY (broker_id) REFERENCES Broker (id)
 );
 

@@ -9,6 +9,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalTime;
+
 @ExtendWith(MockitoExtension.class)
 class HouseImageServiceTest {
     @InjectMocks
@@ -29,4 +31,5 @@ class HouseImageServiceTest {
         // Then
         Mockito.verify(houseImageRepository, Mockito.times(1)).save(Mockito.any(HouseImage.class));
     }
+
 }

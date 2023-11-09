@@ -4,7 +4,6 @@ import com.chaincuerealestate.chaincuerealestate.domains.House;
 import com.chaincuerealestate.chaincuerealestate.services.HouseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -27,6 +26,14 @@ public class HouseHelper {
         return dtoBuilder -> {
             List<House> houses = houseService.findAll();
             setHouses.accept(dtoBuilder, houses);
+            return dtoBuilder;
+        };
+    }
+
+    public <B> Function<B, B> updateDTOBuilderWithHouseByHouseId(String houseId, BiConsumer<B, House> setHouse) {
+        return dtoBuilder -> {
+            var houses = houseService.findById(houseId);
+            setHouse.accept(dtoBuilder, houses);
             return dtoBuilder;
         };
     }

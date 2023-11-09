@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,6 +19,7 @@ public class House {
     @Id
     private String id;
     private String title;
+    private String description;
     private String location;
     private int numberRooms;
     private int beds;
@@ -30,8 +33,8 @@ public class House {
     private List<HouseImage> images;
     @OneToOne(cascade = CascadeType.ALL)
     private Broker broker;
+    private LocalDateTime timestamp;
 
-    /*TODO add created and mock data*/
     public enum HouseTypes {
         CONDOMINIUM,
         VILLA,
@@ -47,6 +50,7 @@ public class House {
                 UUID.randomUUID().toString(),
                 "",
                 "",
+                "",
                 0,
                 0,
                 "",
@@ -54,7 +58,8 @@ public class House {
                 false,
                 houseTypes.toString(),
                 List.of(),
-                null
+                null,
+                LocalDateTime.now()
         );
     }
 

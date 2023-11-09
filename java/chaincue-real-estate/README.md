@@ -1,7 +1,8 @@
 # Setup
 
-![Alt text](db.png)
+[//]: # (![Alt text]&#40;db.png&#41;)
 
+<img src="db.png" alt="Alt text" width="300" height="200" />
 
 ```
 docker-compose up -d

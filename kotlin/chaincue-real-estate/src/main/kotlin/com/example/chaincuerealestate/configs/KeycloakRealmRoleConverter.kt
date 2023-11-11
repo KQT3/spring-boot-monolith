@@ -9,9 +9,12 @@ import java.util.stream.Collectors
 
 class KeycloakRealmRoleConverter : Converter<Jwt, Collection<GrantedAuthority>> {
     override fun convert(jwt: Jwt): Collection<GrantedAuthority> {
-        val realmAccess = jwt.claims["realm_access"] as Map<String, Any>
-        return (realmAccess["roles"] as List<String>).stream()
-            .map { roleName -> SimpleGrantedAuthority("ROLE_$roleName") }
+        val realmAccess = jwt.claims["realm_access"] as Map<*, *>
+        val roles = realmAccess["roles"] as List<*>
+
+        return roles.stream()
+            .map { roleName -> "ROLE_$roleName" }
+            .map { SimpleGrantedAuthority(it) }
             .collect(Collectors.toList())
     }
 }

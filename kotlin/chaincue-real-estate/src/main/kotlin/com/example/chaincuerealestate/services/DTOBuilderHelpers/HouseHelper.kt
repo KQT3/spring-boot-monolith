@@ -33,6 +33,14 @@ class HouseHelper(@Autowired private val houseService: HouseService) {
         }
     }
 
+    fun <B> updateDTOBuilderWithHouseByHouseId(houseId: String, setHouse: (B, House) -> Unit): (B) -> B {
+        return { dtoBuilder ->
+            val house = houseService.findById(houseId)
+            setHouse(dtoBuilder, house)
+            dtoBuilder
+        }
+    }
+
 //    fun <B> updateDTOBuilderWithHouseByHouseId(houseId: String, setHouse: BiConsumer<B, House>): (B) -> B {
 //        return { dtoBuilder ->
 //            val house = houseService.findById(houseId)

@@ -21,24 +21,16 @@ class HomePage(
     @GetMapping
     fun homePage(): ResponseEntity<HomePageDTO> {
         log.info("HomePage")
-//        val toDTO = toHomePageDTO { it }
-        val toDTO = toHomePageDTO { dtoBuilder ->
-            dtoBuilder.apply {
-
-            }
-        }
-
+        val toDTO = toHomePageDTO { it }
         return ResponseEntity.ok(toDTO)
     }
 
     fun toHomePageDTO(additionalProcessing: ((DTOBuilder) -> DTOBuilder)?): HomePageDTO {
-        val builder = additionalProcessing?.invoke(DTOBuilder()) ?: DTOBuilder()
-        return builder
+      return (additionalProcessing?.invoke(DTOBuilder()) ?: DTOBuilder())
             .apply { countryHelper.updateDTOBuilderWithCountries { dtoBuilder: DTOBuilder, countries -> dtoBuilder.countries = countries }.invoke(this) }
             .apply { houseHelper.updateDTOBuilderWithHouses() { dtoBuilder: DTOBuilder, houses -> dtoBuilder.houses = houses }.invoke(this) }
             .let { toDTO(it) }
     }
-
 
     private fun toDTO(dtoBuilder: DTOBuilder): HomePageDTO {
         return HomePageDTO(

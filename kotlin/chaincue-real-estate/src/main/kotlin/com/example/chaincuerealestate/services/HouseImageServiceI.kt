@@ -7,4 +7,3 @@ interface HouseImageServiceI {
     fun findById(id: String): HouseImage
     fun findAll(): List<HouseImage>
 }
-

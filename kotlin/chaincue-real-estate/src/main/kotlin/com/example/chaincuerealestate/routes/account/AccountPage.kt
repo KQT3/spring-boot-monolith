@@ -22,7 +22,7 @@ class AccountPage {
 
     private fun toHomePageDTO(additionalProcessing: ((DTOBuilder) -> DTOBuilder)?): AccountPageDTO {
         return (additionalProcessing?.invoke(DTOBuilder("")) ?: DTOBuilder(""))
-            .let { toDTO(it) }
+            .let(::toDTO)
     }
 
     private fun toDTO(dtoBuilder: DTOBuilder): AccountPageDTO {
@@ -32,7 +32,7 @@ class AccountPage {
     }
 
     private data class DTOBuilder(
-        val id: String = ""
+        val id: String = "1"
     )
 
     private companion object {

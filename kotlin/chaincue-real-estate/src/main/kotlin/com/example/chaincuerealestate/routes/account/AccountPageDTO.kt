@@ -1,4 +1,3 @@
 package com.example.chaincuerealestate.routes.account
 
-class AccountPageDTO(id: String) {
-}
+data class AccountPageDTO(val id: String)

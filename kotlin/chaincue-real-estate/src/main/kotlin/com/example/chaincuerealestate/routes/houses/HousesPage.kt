@@ -1,7 +1,8 @@
-package com.example.chaincuerealestate.routes.home
+package com.example.chaincuerealestate.routes.houses
 
 import com.example.chaincuerealestate.domains.Country
 import com.example.chaincuerealestate.domains.House
+import com.example.chaincuerealestate.routes.home.HomePage
 import com.example.chaincuerealestate.services.DTOBuilderHelpers.CountryHelper
 import com.example.chaincuerealestate.services.DTOBuilderHelpers.HouseHelper
 import org.slf4j.LoggerFactory
@@ -11,41 +12,41 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("home")
-class HomePage(
+@RequestMapping("houses")
+class HousesPage (
     private val houseHelper: HouseHelper,
     private val countryHelper: CountryHelper
 ) {
 
     @GetMapping
-    fun homePage(): ResponseEntity<HomePageDTO> {
+    fun homePage(): ResponseEntity<HousesPageDTO> {
         log.info("HomePage")
         val toDTO = toHomePageDTO { it }
         return ResponseEntity.ok(toDTO)
     }
 
-    private fun toHomePageDTO(additionalProcessing: ((DTOBuilder) -> DTOBuilder)?): HomePageDTO {
+    private fun toHomePageDTO(additionalProcessing: ((DTOBuilder) -> DTOBuilder)?): HousesPageDTO {
         return (additionalProcessing?.invoke(DTOBuilder()) ?: DTOBuilder())
             .apply { countryHelper.updateDTOBuilderWithCountries { dtoBuilder: DTOBuilder, countries -> dtoBuilder.countries = countries }.invoke(this) }
             .apply { houseHelper.updateDTOBuilderWithHouses { dtoBuilder: DTOBuilder, houses -> dtoBuilder.houses = houses }.invoke(this) }
             .let { toDTO(it) }
     }
 
-    private fun toDTO(dtoBuilder: DTOBuilder): HomePageDTO {
-        return HomePageDTO(
+    private fun toDTO(dtoBuilder: DTOBuilder): HousesPageDTO {
+        return HousesPageDTO(
             dtoBuilder.countries.map(::toDTO).toTypedArray(),
-            dtoBuilder.getHousesSortedByTimestamp().map(::toDTO).toTypedArray()
+            dtoBuilder.houses.map(::toDTO).toTypedArray()
         )
     }
 
-    private fun toDTO(country: Country): HomePageDTO.Country {
-        return HomePageDTO.Country(
+    private fun toDTO(country: Country): HousesPageDTO.Country {
+        return HousesPageDTO.Country(
             country.name
         )
     }
 
-    private fun toDTO(house: House): HomePageDTO.House {
-        return HomePageDTO.House(
+    private fun toDTO(house: House): HousesPageDTO.House {
+        return HousesPageDTO.House(
             house.id,
             house.title,
             house.location,
@@ -60,11 +61,7 @@ class HomePage(
     private data class DTOBuilder(
         var countries: List<Country> = ArrayList(),
         var houses: List<House> = ArrayList()
-    ) {
-        fun getHousesSortedByTimestamp(): List<House> {
-            return houses.sortedByDescending { it.timestamp }.take(6).toList()
-        }
-    }
+    )
 
     private companion object {
         private val log = LoggerFactory.getLogger(HomePage::class.java)

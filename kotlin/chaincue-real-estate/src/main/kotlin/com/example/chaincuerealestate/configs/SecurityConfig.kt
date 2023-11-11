@@ -15,7 +15,7 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 @Configuration
 @EnableWebSecurity
 @Profile("!test")
-class SecurityConfig() {
+class SecurityConfig {
 
     @Bean
     fun securityWebFilterChain(http: HttpSecurity): SecurityFilterChain {

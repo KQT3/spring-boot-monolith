@@ -6,11 +6,16 @@ import com.example.chaincuerealestate.services.DTOBuilderHelpers.CountryHelper
 import com.example.chaincuerealestate.services.DTOBuilderHelpers.HouseHelper
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
+import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.reactive.function.server.ServerResponse
+import org.springframework.web.reactive.function.server.bodyAndAwait
+import org.springframework.web.reactive.function.server.bodyValueAndAwait
+import reactor.core.publisher.Mono
 
-@RestController
+@Controller
 @RequestMapping("home")
 class HomePage(
     private val houseHelper: HouseHelper,
@@ -18,10 +23,10 @@ class HomePage(
 ) {
 
     @GetMapping
-    suspend fun homePage(): ResponseEntity<HomePageDTO> {
+    suspend fun homePage(): ServerResponse {
         log.info("HomePage")
         val toDTO = toHomePageDTO { it }
-        return ResponseEntity.ok(toDTO)
+        return ServerResponse.ok().bodyValueAndAwait(toDTO)
     }
 
     private suspend fun toHomePageDTO(additionalProcessing: ((DTOBuilder) -> DTOBuilder)?): HomePageDTO {

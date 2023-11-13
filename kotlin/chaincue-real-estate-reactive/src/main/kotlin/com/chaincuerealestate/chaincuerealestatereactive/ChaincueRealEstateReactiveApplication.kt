@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class ChaincueRealEstateReactiveApplication
 
 fun main(args: Array<String>) {
-	runApplication<ChaincueRealEstateReactiveApplication>(*args)
+    runApplication<ChaincueRealEstateReactiveApplication>(*args)
 }

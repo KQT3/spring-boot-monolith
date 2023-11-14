@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS broker
 (
-    id           VARCHAR(36) PRIMARY KEY,
+    id           VARCHAR(255) PRIMARY KEY,
     name         VARCHAR(255),
     phone_number VARCHAR(20),
     email        VARCHAR(255) NOT NULL
@@ -8,13 +8,13 @@ CREATE TABLE IF NOT EXISTS broker
 
 CREATE TABLE IF NOT EXISTS country
 (
-    id   VARCHAR(36) PRIMARY KEY,
+    id   VARCHAR(255) PRIMARY KEY,
     name VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS house
 (
-    id           VARCHAR(36) PRIMARY KEY,
+    id           VARCHAR(255) PRIMARY KEY,
     title        VARCHAR(255),
     description  VARCHAR(255),
     location     VARCHAR(255),
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS house
 
 CREATE TABLE IF NOT EXISTS house_image
 (
-    id  VARCHAR(36) PRIMARY KEY,
+    id  VARCHAR(255) PRIMARY KEY,
     url VARCHAR(255) NOT NULL
 );
 

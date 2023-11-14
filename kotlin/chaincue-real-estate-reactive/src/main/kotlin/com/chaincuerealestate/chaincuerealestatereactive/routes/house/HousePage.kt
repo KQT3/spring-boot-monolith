@@ -55,7 +55,7 @@ class HousePage (
 
     private fun toDTO(house: Broker): HousePageDTO.Broker {
         return HousePageDTO.Broker(
-            house.id,
+            house.id!!,
             house.name,
             house.phoneNumber,
             house.email

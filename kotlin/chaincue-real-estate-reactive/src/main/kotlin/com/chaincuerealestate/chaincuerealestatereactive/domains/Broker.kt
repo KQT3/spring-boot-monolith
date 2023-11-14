@@ -10,16 +10,15 @@ import java.util.UUID
 
 @Table("broker")
 data class Broker(
-    @Id
-    @Column("id")
-    private val id: String,
+    @Id private val id: String,
     val name: String,
     val phoneNumber: String,
     val email: String,
-    @Transient private val isNew: Boolean = false,
+    @Transient private val isNew: Boolean = true
 ) : Persistable<String> {
 
     override fun getId() = id
+
     @JsonIgnore
     override fun isNew() = isNew
 

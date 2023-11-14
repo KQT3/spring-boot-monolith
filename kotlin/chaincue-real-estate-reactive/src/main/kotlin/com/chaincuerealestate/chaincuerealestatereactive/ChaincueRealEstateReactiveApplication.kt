@@ -15,10 +15,12 @@ class ChaincueRealEstateReactiveApplication {
     fun init(
         brokerRepository: BrokerRepository
     ) = ApplicationRunner {
+
         runBlocking {
             val broker1 = Broker.create("")
             brokerRepository.save(broker1)
         }
+
     }
 }
 

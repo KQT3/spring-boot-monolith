@@ -1,12 +1,13 @@
-package com.example.chaincuerealestate.domains
+package com.chaincuerealestate.chaincuerealestatereactive.domains
 
 import org.springframework.data.annotation.Id
+import org.springframework.data.domain.Persistable
 import org.springframework.data.relational.core.mapping.Table
 import java.util.*
 
 @Table("country")
 
-data class Country(
+data class Country (
     @Id
     var id: String,
     var name: String
@@ -24,4 +25,5 @@ data class Country(
         SWEDEN,
         SPAIN
     }
+
 }

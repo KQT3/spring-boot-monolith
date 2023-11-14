@@ -1,4 +1,5 @@
-//package com.example.chaincuerealestate.configs
+package com.chaincuerealestate.chaincuerealestatereactive.configs
+
 //
 //import org.springframework.core.convert.converter.Converter
 //import org.springframework.security.core.GrantedAuthority

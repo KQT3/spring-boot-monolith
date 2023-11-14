@@ -1,5 +1,4 @@
-package com.example.chaincuerealestate.routes.house
-
+package com.chaincuerealestate.chaincuerealestatereactive.routes.house
 data class HousePageDTO(
     val id: String,
     val title: String,

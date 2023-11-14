@@ -1,6 +1,5 @@
-package com.example.chaincuerealestate.repositories
-
-import com.example.chaincuerealestate.domains.House
+package com.chaincuerealestate.chaincuerealestatereactive.repositories
+import com.chaincuerealestate.chaincuerealestatereactive.domains.House
 import org.springframework.data.repository.kotlin.CoroutineCrudRepository
 import org.springframework.stereotype.Repository
 

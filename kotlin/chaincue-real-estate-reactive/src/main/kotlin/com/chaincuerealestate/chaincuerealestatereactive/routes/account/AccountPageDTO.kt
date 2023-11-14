@@ -1,3 +1,2 @@
-package com.example.chaincuerealestate.routes.account
-
+package com.chaincuerealestate.chaincuerealestatereactive.routes.account
 data class AccountPageDTO(val id: String)

@@ -1,10 +1,9 @@
-package com.example.chaincuerealestate.routes.houses
-
-import com.example.chaincuerealestate.domains.Country
-import com.example.chaincuerealestate.domains.House
-import com.example.chaincuerealestate.routes.home.HomePage
-import com.example.chaincuerealestate.services.DTOBuilderHelpers.CountryHelper
-import com.example.chaincuerealestate.services.DTOBuilderHelpers.HouseHelper
+package com.chaincuerealestate.chaincuerealestatereactive.routes.houses
+import com.chaincuerealestate.chaincuerealestatereactive.domains.Country
+import com.chaincuerealestate.chaincuerealestatereactive.domains.House
+import com.chaincuerealestate.chaincuerealestatereactive.routes.home.HomePages
+import com.chaincuerealestate.chaincuerealestatereactive.services.DTOBuilderHelpers.CountryHelper
+import com.chaincuerealestate.chaincuerealestatereactive.services.DTOBuilderHelpers.HouseHelper
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -64,6 +63,6 @@ class HousesPage (
     )
 
     private companion object {
-        private val log = LoggerFactory.getLogger(HomePage::class.java)
+        private val log = LoggerFactory.getLogger(HomePages::class.java)
     }
 }

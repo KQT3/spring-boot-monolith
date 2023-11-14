@@ -1,8 +1,8 @@
-package com.example.chaincuerealestate.services
+package com.chaincuerealestate.chaincuerealestatereactive.services
 
-import com.example.chaincuerealestate.domains.HouseImage
-import com.example.chaincuerealestate.exceptions.HouseImageNotFoundException
-import com.example.chaincuerealestate.repositories.HouseImageRepository
+import com.chaincuerealestate.chaincuerealestatereactive.domains.HouseImage
+import com.chaincuerealestate.chaincuerealestatereactive.exceptions.HouseImageNotFoundException
+import com.chaincuerealestate.chaincuerealestatereactive.repositories.HouseImageRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext

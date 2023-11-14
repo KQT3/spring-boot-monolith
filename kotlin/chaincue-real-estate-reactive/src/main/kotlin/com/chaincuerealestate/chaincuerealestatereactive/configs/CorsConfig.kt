@@ -1,4 +1,4 @@
-package com.example.chaincuerealestate.configs
+package com.chaincuerealestate.chaincuerealestatereactive.configs
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.context.annotation.Configuration
@@ -8,7 +8,6 @@ import org.springframework.http.CacheControl
 import org.springframework.web.reactive.config.CorsRegistry
 import org.springframework.web.reactive.config.ResourceHandlerRegistry
 import org.springframework.web.reactive.config.WebFluxConfigurer
-
 
 @Configuration
 @ConfigurationProperties(prefix = "chaincue-real-estate.cors")

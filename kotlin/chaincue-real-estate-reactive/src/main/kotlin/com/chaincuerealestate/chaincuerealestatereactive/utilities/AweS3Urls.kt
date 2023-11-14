@@ -1,4 +1,4 @@
-package com.example.chaincuerealestate.utilities
+package com.chaincuerealestate.chaincuerealestatereactive.utilities
 
 interface AweS3Urls {
     companion object {

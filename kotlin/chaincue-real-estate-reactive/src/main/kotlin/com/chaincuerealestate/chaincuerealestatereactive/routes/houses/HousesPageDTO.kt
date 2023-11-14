@@ -1,4 +1,5 @@
-package com.example.chaincuerealestate.routes.houses
+package com.chaincuerealestate.chaincuerealestatereactive.routes.houses
+
 
 class HousesPageDTO(
     val countries: Array<Country>,

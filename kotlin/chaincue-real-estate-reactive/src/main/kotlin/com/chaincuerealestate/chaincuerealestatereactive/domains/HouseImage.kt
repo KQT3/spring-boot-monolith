@@ -1,4 +1,4 @@
-package com.example.chaincuerealestate.domains
+package com.chaincuerealestate.chaincuerealestatereactive.domains
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Table

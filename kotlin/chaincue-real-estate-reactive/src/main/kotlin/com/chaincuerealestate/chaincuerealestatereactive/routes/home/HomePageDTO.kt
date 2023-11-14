@@ -1,5 +1,4 @@
-package com.example.chaincuerealestate.routes.home
-
+package com.chaincuerealestate.chaincuerealestatereactive.routes.home
 data class HomePageDTO(
     val countries: Array<Country>,
     val recentlyAddedHouses: Array<House>

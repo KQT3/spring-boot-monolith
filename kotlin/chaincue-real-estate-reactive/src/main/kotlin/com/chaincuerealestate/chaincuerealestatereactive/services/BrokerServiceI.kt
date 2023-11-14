@@ -1,3 +1,3 @@
-package com.example.chaincuerealestate.services
+package com.chaincuerealestate.chaincuerealestatereactive.services
 
 interface BrokerServiceI

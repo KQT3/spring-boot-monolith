@@ -1,4 +1,4 @@
-package com.example.chaincuerealestate.configs
+package com.chaincuerealestate.chaincuerealestatereactive.configs
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

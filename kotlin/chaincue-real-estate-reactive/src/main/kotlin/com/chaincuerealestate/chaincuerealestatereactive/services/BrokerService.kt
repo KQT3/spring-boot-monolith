@@ -1,7 +1,7 @@
-package com.example.chaincuerealestate.services
+package com.chaincuerealestate.chaincuerealestatereactive.services
 
-import com.example.chaincuerealestate.domains.Broker
-import com.example.chaincuerealestate.repositories.BrokerRepository
+import com.chaincuerealestate.chaincuerealestatereactive.domains.Broker
+import com.chaincuerealestate.chaincuerealestatereactive.repositories.BrokerRepository
 import org.springframework.stereotype.Service
 
 @Service

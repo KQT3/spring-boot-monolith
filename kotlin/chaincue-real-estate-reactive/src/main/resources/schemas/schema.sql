@@ -35,3 +35,33 @@ CREATE TABLE IF NOT EXISTS house_image
     url VARCHAR(255) NOT NULL
 );
 
+
+-- CREATE TABLE IF NOT EXISTS house_images
+-- (
+--     house_id VARCHAR(255),
+--     image_id VARCHAR(255),
+--     PRIMARY KEY (house_id, image_id),
+--     CONSTRAINT fk_house_images_house FOREIGN KEY (house_id) REFERENCES house (id) ON DELETE CASCADE,
+--     CONSTRAINT fk_house_images_image FOREIGN KEY (image_id) REFERENCES house_image (id) ON DELETE CASCADE
+-- );
+
+-- create table if not exists public.house_images
+-- (
+--     house_id  varchar(255) not null
+--         constraint fkgsf1gifftuxou9b2d1j22p97e
+--             references public.house,
+--     images_id varchar(255) not null
+--         constraint uk_n4qpgfynm07k4ntcakty2ulsp
+--             unique
+--         constraint fkr69xkohh3knqcljsau738owrl
+--             references public.house_image
+-- );
+
+
+CREATE TABLE IF NOT EXISTS house_images
+(
+    house_id VARCHAR(255),
+    image_id VARCHAR(255),
+    CONSTRAINT fk_house_images_house FOREIGN KEY (house_id) REFERENCES house (id) ON DELETE CASCADE,
+    CONSTRAINT fk_house_images_image FOREIGN KEY (image_id) REFERENCES house_image (id) ON DELETE CASCADE
+);

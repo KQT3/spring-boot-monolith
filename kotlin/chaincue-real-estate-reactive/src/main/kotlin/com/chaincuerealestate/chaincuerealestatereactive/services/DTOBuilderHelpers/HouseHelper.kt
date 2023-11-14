@@ -1,13 +1,12 @@
-package com.example.chaincuerealestate.services.DTOBuilderHelpers
+package com.chaincuerealestate.chaincuerealestatereactive.services.DTOBuilderHelpers
 
-import com.example.chaincuerealestate.domains.House
-import com.example.chaincuerealestate.services.HouseService
+import com.chaincuerealestate.chaincuerealestatereactive.domains.House
+import com.chaincuerealestate.chaincuerealestatereactive.services.HouseService
 import kotlinx.coroutines.flow.toList
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component
-class HouseHelper(@Autowired private val houseService: HouseService) {
+class HouseHelper(private val houseService: HouseService) {
     fun <B> updateDTOBuilderWithHouses(setHouses: suspend (B, List<House>) -> Unit): suspend(B) -> B {
         return { dtoBuilder ->
             val houses = houseService.findAll().toList()

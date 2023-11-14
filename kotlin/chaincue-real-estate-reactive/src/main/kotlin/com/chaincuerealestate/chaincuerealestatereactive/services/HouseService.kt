@@ -1,9 +1,9 @@
-package com.example.chaincuerealestate.services
+package com.chaincuerealestate.chaincuerealestatereactive.services
 
-import com.example.chaincuerealestate.domains.House
-import com.example.chaincuerealestate.exceptions.HouseNotFoundException
-import com.example.chaincuerealestate.repositories.HouseRepository
-import com.example.chaincuerealestate.utilities.AweS3Urls
+import com.chaincuerealestate.chaincuerealestatereactive.domains.House
+import com.chaincuerealestate.chaincuerealestatereactive.exceptions.HouseNotFoundException
+import com.chaincuerealestate.chaincuerealestatereactive.repositories.HouseRepository
+import com.chaincuerealestate.chaincuerealestatereactive.utilities.AweS3Urls
 import kotlinx.coroutines.flow.Flow
 import org.springframework.stereotype.Service
 

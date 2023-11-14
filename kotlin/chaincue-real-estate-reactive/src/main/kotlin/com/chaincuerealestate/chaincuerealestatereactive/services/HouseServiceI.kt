@@ -1,6 +1,6 @@
-package com.example.chaincuerealestate.services
+package com.chaincuerealestate.chaincuerealestatereactive.services
 
-import com.example.chaincuerealestate.domains.House
+import com.chaincuerealestate.chaincuerealestatereactive.domains.House
 import kotlinx.coroutines.flow.Flow
 
 interface HouseServiceI {

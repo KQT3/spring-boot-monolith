@@ -1,6 +1,6 @@
-package com.example.chaincuerealestate.services
+package com.chaincuerealestate.chaincuerealestatereactive.services
 
-import com.example.chaincuerealestate.domains.Country
+import com.chaincuerealestate.chaincuerealestatereactive.domains.Country
 import kotlinx.coroutines.flow.Flow
 
 interface CountryServiceI {

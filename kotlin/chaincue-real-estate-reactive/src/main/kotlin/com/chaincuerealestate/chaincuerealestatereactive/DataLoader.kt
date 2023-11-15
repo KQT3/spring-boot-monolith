@@ -36,12 +36,7 @@ class DataLoader(
                     house
                 }
                 houseList.forEach {
-                    saveHouseWithImages(
-                        houseImageRepository,
-                        houseImagesRepository,
-                        houseRepository,
-                        it
-                    )
+                    saveHouseWithImages(houseImageRepository, houseImagesRepository, houseRepository, it)
                 }
 
                 /*Broker*/

@@ -1,17 +1,13 @@
 package com.chaincuerealestate.chaincuerealestatereactive.domains
 
-import org.springframework.data.annotation.Id
 import org.springframework.data.annotation.ReadOnlyProperty
 import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Table
 import org.springframework.lang.NonNull
 import java.time.LocalDateTime
-import java.util.*
 
 @Table("house")
 data class House(
-    @Id
-    var id: String,
     var title: String,
     var description: String,
     var location: String,
@@ -23,18 +19,15 @@ data class House(
     var sold: Boolean,
     @get:NonNull
     var houseTypes: String,
-//    @OneToMany(cascade = [CascadeType.ALL])
     @ReadOnlyProperty
     var images: List<HouseImage>,
-//    @OneToOne(cascade = [CascadeType.ALL])
     @Column("broker_id")
     var brokerId: String?,
-    var timestamp: LocalDateTime
-) {
+    var created: LocalDateTime
+) : AbstractDomain() {
     companion object {
         fun create(houseTypes: HouseTypes, src: String): House {
             return House(
-                id = UUID.randomUUID().toString(),
                 title = "",
                 description = "",
                 location = "",
@@ -46,7 +39,7 @@ data class House(
                 houseTypes = houseTypes.toString(),
                 images = listOf(),
                 brokerId = null,
-                timestamp = LocalDateTime.now()
+                created = LocalDateTime.now()
             )
         }
     }

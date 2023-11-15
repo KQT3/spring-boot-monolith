@@ -39,7 +39,6 @@ class DataLoader(
                 house.price = "$969 384"
                 house
             }
-
             houseList.forEach { saveHouseWithImages(houseImageRepository, houseRepository, it) }
 
             /*Broker*/

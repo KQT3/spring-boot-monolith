@@ -7,7 +7,7 @@ data class Broker(
     val name: String,
     val phoneNumber: String,
     val email: String,
-) : DomainObject() {
+) : AbstractDomain() {
 
     companion object {
         fun create(email: String): Broker {

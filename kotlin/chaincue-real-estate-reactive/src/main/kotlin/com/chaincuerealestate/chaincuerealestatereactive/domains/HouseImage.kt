@@ -6,14 +6,11 @@ import java.util.*
 
 @Table("house_image")
 data class HouseImage(
-    @Id
-    var id: String,
     var url: String
-) {
+) : AbstractDomain() {
     companion object {
         fun create(url: String): HouseImage {
             return HouseImage(
-                id = UUID.randomUUID().toString(),
                 url = url
             )
         }

@@ -3,7 +3,6 @@ package com.chaincuerealestate.chaincuerealestatereactive.domains
 import org.springframework.data.relational.core.mapping.Table
 
 @Table("country")
-
 data class Country(
     var name: String
 ) : AbstractDomain() {
@@ -19,5 +18,4 @@ data class Country(
         SWEDEN,
         SPAIN
     }
-
 }

@@ -1,6 +1,6 @@
 package com.chaincuerealestate.chaincuerealestatereactive.routes.account
 
-import com.chaincuerealestate.chaincuerealestatereactive.routes.home.HomePages
+import com.chaincuerealestate.chaincuerealestatereactive.routes.home.HomePage
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -36,6 +36,6 @@ class AccountPage {
     )
 
     private companion object {
-        private val log = LoggerFactory.getLogger(HomePages::class.java)
+        private val log = LoggerFactory.getLogger(HomePage::class.java)
     }
 }

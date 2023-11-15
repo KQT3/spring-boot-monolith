@@ -20,7 +20,8 @@ class HouseService(private val houseRepository: HouseRepository) : HouseServiceI
     }
 
     override suspend fun findAll(): Flow<House> {
-        return houseRepository.findAll()
+        val findAll = houseRepository.findAll()
+        return findAll
     }
 }
 

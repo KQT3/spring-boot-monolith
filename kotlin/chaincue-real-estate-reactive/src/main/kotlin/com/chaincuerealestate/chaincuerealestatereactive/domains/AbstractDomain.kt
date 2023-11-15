@@ -7,7 +7,7 @@ import org.springframework.data.domain.Persistable
 import java.util.*
 
 abstract class AbstractDomain(
-    @Id private val id: String = UUID.randomUUID().toString(),
+    @Id private var id: String = UUID.randomUUID().toString(),
     @Transient private val isNew: Boolean = true
 ) : Persistable<String> {
     override fun getId() = id

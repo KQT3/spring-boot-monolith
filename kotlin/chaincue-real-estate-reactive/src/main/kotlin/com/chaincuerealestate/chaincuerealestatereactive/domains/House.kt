@@ -20,7 +20,7 @@ data class House(
     @get:NonNull
     var houseTypes: String,
     @ReadOnlyProperty
-    var images: List<HouseImage>,
+    var images: List<HouseImage> = listOf(),
     @Column("broker_id")
     var brokerId: String?,
     var created: LocalDateTime
@@ -37,7 +37,6 @@ data class House(
                 src = src,
                 sold = false,
                 houseTypes = houseTypes.toString(),
-                images = listOf(),
                 brokerId = null,
                 created = LocalDateTime.now()
             )

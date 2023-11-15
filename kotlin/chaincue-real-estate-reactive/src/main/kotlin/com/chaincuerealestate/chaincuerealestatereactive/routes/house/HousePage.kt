@@ -2,7 +2,7 @@ package com.chaincuerealestate.chaincuerealestatereactive.routes.house
 import com.chaincuerealestate.chaincuerealestatereactive.domains.Broker
 import com.chaincuerealestate.chaincuerealestatereactive.domains.House
 import com.chaincuerealestate.chaincuerealestatereactive.domains.HouseImage
-import com.chaincuerealestate.chaincuerealestatereactive.routes.home.HomePages
+import com.chaincuerealestate.chaincuerealestatereactive.routes.home.HomePage
 import com.chaincuerealestate.chaincuerealestatereactive.services.DTOBuilderHelpers.HouseHelper
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
@@ -67,7 +67,7 @@ class HousePage (
     )
 
     private companion object {
-        private val log = LoggerFactory.getLogger(HomePages::class.java)
+        private val log = LoggerFactory.getLogger(HomePage::class.java)
     }
 
 }

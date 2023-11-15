@@ -4,7 +4,9 @@ import com.chaincuerealestate.chaincuerealestatereactive.domains.Country
 import com.chaincuerealestate.chaincuerealestatereactive.domains.House
 import com.chaincuerealestate.chaincuerealestatereactive.services.DTOBuilderHelpers.CountryHelper
 import com.chaincuerealestate.chaincuerealestatereactive.services.DTOBuilderHelpers.HouseHelper
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -25,40 +27,23 @@ class HomePage(
         return ResponseEntity.ok(homePageDTO)
     }
 
-//    private suspend fun toHomePageDTO(additionalProcessing: ((DTOBuilder) -> DTOBuilder)?): HomePageDTO {
-//        return (additionalProcessing?.invoke(DTOBuilder()) ?: DTOBuilder())
-//            .apply { countryHelper.updateDTOBuilderWithCountries { dtoBuilder: DTOBuilder, countries -> dtoBuilder.countries = countries }.invoke(this) }
-//            .apply { houseHelper.updateDTOBuilderWithHouses { dtoBuilder: DTOBuilder, houses -> dtoBuilder.houses = houses }.invoke(this) }
-//            .let { toDTO(it) }
-//    }
-
-//    private suspend fun toHomePageDTO(additionalProcessing: ((DTOBuilder) -> DTOBuilder)?): HomePageDTO {
-//        return coroutineScope {
-//            val job = async {
-//                (additionalProcessing?.invoke(DTOBuilder()) ?: DTOBuilder())
-//                    .apply { countryHelper.updateDTOBuilderWithCountries { dtoBuilder: DTOBuilder, countries -> dtoBuilder.countries = countries }.invoke(this) }
-//                    .apply { houseHelper.updateDTOBuilderWithHouses { dtoBuilder: DTOBuilder, houses -> dtoBuilder.houses = houses }.invoke(this) }
-//                    .let { toDTO(it) }
-//            }
-//            job.await()
-//        }
-//    }
-
     private suspend fun toHomePageDTO(additionalProcessing: ((DTOBuilder) -> DTOBuilder)?): HomePageDTO {
         return coroutineScope {
             val dtoBuilder = additionalProcessing?.invoke(DTOBuilder()) ?: DTOBuilder()
 
-            val countriesJob = async { countryHelper.updateDTOBuilderWithCountries { dtoBuilder: DTOBuilder, countries -> dtoBuilder.countries = countries } }.await().invoke(dtoBuilder)
-            val housesJob = async { houseHelper.updateDTOBuilderWithHouses { dtoBuilder: DTOBuilder, houses -> dtoBuilder.houses = houses } }.await().invoke(dtoBuilder)
+            val housesJob = async(Dispatchers.IO) {
+                houseHelper.updateDTOBuilderWithHouses { dtoBuilder: DTOBuilder, houses -> dtoBuilder.houses = houses }
+            }
+            val countriesJob = async(Dispatchers.IO) {
+                countryHelper.updateDTOBuilderWithCountries { dtoBuilder: DTOBuilder, countries -> dtoBuilder.countries = countries }
+            }
 
-//            countriesJob.await().invoke(dtoBuilder)
-//            housesJob.await().invoke(dtoBuilder)
+            countriesJob.await().invoke(dtoBuilder)
+            housesJob.await().invoke(dtoBuilder)
 
             toDTO(dtoBuilder)
         }
     }
-
-
 
     private fun toDTO(dtoBuilder: DTOBuilder): HomePageDTO {
         return HomePageDTO(

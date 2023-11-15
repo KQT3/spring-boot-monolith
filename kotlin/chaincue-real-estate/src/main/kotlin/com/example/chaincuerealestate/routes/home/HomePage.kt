@@ -26,16 +26,8 @@ class HomePage(
 
     private fun toHomePageDTO(additionalProcessing: ((DTOBuilder) -> DTOBuilder)?): HomePageDTO {
         return (additionalProcessing?.invoke(DTOBuilder()) ?: DTOBuilder())
-            .apply {
-                countryHelper.updateDTOBuilderWithCountries { dtoBuilder: DTOBuilder, countries ->
-                    dtoBuilder.countries = countries
-                }.invoke(this)
-            }
-            .apply {
-                houseHelper.updateDTOBuilderWithHouses { dtoBuilder: DTOBuilder, houses ->
-                    dtoBuilder.houses = houses
-                }.invoke(this)
-            }
+            .apply { countryHelper.updateDTOBuilderWithCountries { dtoBuilder: DTOBuilder, countries -> dtoBuilder.countries = countries }.invoke(this) }
+            .apply { houseHelper.updateDTOBuilderWithHouses { dtoBuilder: DTOBuilder, houses -> dtoBuilder.houses = houses }.invoke(this) }
             .let { toDTO(it) }
     }
 

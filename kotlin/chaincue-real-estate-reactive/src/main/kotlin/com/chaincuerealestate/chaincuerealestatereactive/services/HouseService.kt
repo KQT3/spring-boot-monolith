@@ -24,11 +24,15 @@ class HouseService(
     }
 
     override suspend fun findByIdWithRelations(id: String): House {
-        val house = houseRepository.findById(id) ?: throw HouseNotFoundException(id)
-        val imagesRelation = houseImagesRepository.findAllByHouseId(id)
-        val images = imagesRelation.mapNotNull { houseImageRepository.findById(it.imageId) }.toList()
-        house.images = images
-        return house
+        return houseRepository.findById(id)?.apply {
+            val images = houseImagesRepository.findAllByHouseId(id)
+                .mapNotNull { houseImageRepository.findById(it.imageId) }
+                .toList()
+                .apply {
+                    this.images = images
+                }
+            this.images = images
+        } ?: throw HouseNotFoundException(id)
     }
 
     override suspend fun findAll(): Flow<House> {

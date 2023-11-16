@@ -7,6 +7,7 @@ import com.chaincuerealestate.chaincuerealestatereactive.repositories.HouseImage
 import com.chaincuerealestate.chaincuerealestatereactive.repositories.HouseRepository
 import com.chaincuerealestate.chaincuerealestatereactive.utilities.AweS3Urls
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.toList
 import org.springframework.stereotype.Service
@@ -24,15 +25,19 @@ class HouseService(
     }
 
     override suspend fun findByIdWithRelations(id: String): House {
-        return houseRepository.findById(id)?.apply {
-            val images = houseImagesRepository.findAllByHouseId(id)
-                .mapNotNull { houseImageRepository.findById(it.imageId) }
-                .toList()
-                .apply {
-                    this.images = images
-                }
-            this.images = images
+        return houseRepository.findById(id)?.also {
+            findAndAttachHouseImagesRelations(it)
         } ?: throw HouseNotFoundException(id)
+    }
+
+    private suspend fun findAndAttachHouseImagesRelations(house: House): House {
+        return houseImagesRepository.findAllByHouseId(house.id)
+            .mapNotNull { houseImageRepository.findById(it.imageId) }
+            .toList()
+            .let {
+                house.images = it
+                house
+            }
     }
 
     override suspend fun findAll(): Flow<House> {

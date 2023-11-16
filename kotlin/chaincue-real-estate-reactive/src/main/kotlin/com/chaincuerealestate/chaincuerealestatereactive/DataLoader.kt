@@ -20,11 +20,15 @@ class DataLoader(
     fun init(): ApplicationRunner {
         return ApplicationRunner {
             runBlocking {
-                brokerRepository.deleteAll()
                 countryRepository.deleteAll()
                 houseRepository.deleteAll()
                 houseImageRepository.deleteAll()
                 houseImagesRepository.deleteAll()
+                brokerRepository.deleteAll()
+
+                /*Broker*/
+                val broker1 = Broker.create("Mr. Chain","000 000 000","chaincue@gmail.com")
+                brokerRepository.save(broker1)
 
                 /*House*/
                 val houseList = (1..18).map {
@@ -36,12 +40,9 @@ class DataLoader(
                     house
                 }
                 houseList.forEach {
-                    saveHouseWithImages(houseImageRepository, houseImagesRepository, houseRepository, it)
+                    saveHouseWithImages(houseImageRepository, houseImagesRepository, houseRepository, it, broker1)
                 }
 
-                /*Broker*/
-                val broker1 = Broker.create("")
-                brokerRepository.save(broker1)
 
                 /*Country*/
                 val country1 = Country.create(Country.CountryNames.SWEDEN)
@@ -57,8 +58,10 @@ private suspend fun saveHouseWithImages(
     houseImageRepository: HouseImageRepository,
     houseImagesRepository: HouseImagesRepository,
     houseRepository: HouseRepository,
-    house: House
+    house: House,
+    broker: Broker
 ) {
+    house.brokerId = broker.id
     houseRepository.save(house)
     val imageUrls = listOf(
         house.src,
@@ -76,7 +79,7 @@ private suspend fun saveHouseWithImages(
         houseImageRepository.save(houseImage)
         imageList.add(houseImage)
 
-        val houseImageAssociation = HouseImages.create(house.id, houseImage.id)
+        val houseImageAssociation = HouseImageRelations.create(house.id, houseImage.id)
         houseImagesRepository.save(houseImageAssociation)
     }
 }

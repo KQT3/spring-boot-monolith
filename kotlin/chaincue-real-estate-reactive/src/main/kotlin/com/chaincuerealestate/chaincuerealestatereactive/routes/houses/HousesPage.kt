@@ -4,6 +4,9 @@ import com.chaincuerealestate.chaincuerealestatereactive.domains.House
 import com.chaincuerealestate.chaincuerealestatereactive.routes.home.HomePage
 import com.chaincuerealestate.chaincuerealestatereactive.services.DTOBuilderHelpers.CountryHelper
 import com.chaincuerealestate.chaincuerealestatereactive.services.DTOBuilderHelpers.HouseHelper
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -18,17 +21,28 @@ class HousesPage (
 ) {
 
     @GetMapping
-    suspend fun homePage(): ResponseEntity<HousesPageDTO> {
-        log.info("HomePage")
+    suspend fun housesPage(): ResponseEntity<HousesPageDTO> {
+        log.info("housesPage")
         val toDTO = toHomePageDTO { it }
         return ResponseEntity.ok(toDTO)
     }
 
     private suspend fun toHomePageDTO(additionalProcessing: ((DTOBuilder) -> DTOBuilder)?): HousesPageDTO {
-        return (additionalProcessing?.invoke(DTOBuilder()) ?: DTOBuilder())
-            .apply { countryHelper.updateDTOBuilderWithCountries { dtoBuilder: DTOBuilder, countries -> dtoBuilder.countries = countries }.invoke(this) }
-            .apply { houseHelper.updateDTOBuilderWithHouses { dtoBuilder: DTOBuilder, houses -> dtoBuilder.houses = houses }.invoke(this) }
-            .let { toDTO(it) }
+        return coroutineScope {
+            val dtoBuilder = additionalProcessing?.invoke(DTOBuilder()) ?: DTOBuilder()
+
+            val housesJob = async(Dispatchers.IO) {
+                houseHelper.updateDTOBuilderWithHouses { dtoBuilder: DTOBuilder, houses -> dtoBuilder.houses = houses }
+            }
+            val countriesJob = async(Dispatchers.IO) {
+                countryHelper.updateDTOBuilderWithCountries { dtoBuilder: DTOBuilder, countries -> dtoBuilder.countries = countries }
+            }
+
+            countriesJob.await().invoke(dtoBuilder)
+            housesJob.await().invoke(dtoBuilder)
+
+            toDTO(dtoBuilder)
+        }
     }
 
     private fun toDTO(dtoBuilder: DTOBuilder): HousesPageDTO {

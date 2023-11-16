@@ -10,10 +10,10 @@ data class Broker(
 ) : AbstractDomain() {
 
     companion object {
-        fun create(email: String): Broker {
+        fun create(name: String, phoneNumber: String, email: String,): Broker {
             return Broker(
-                name = "",
-                phoneNumber = "",
+                name = name,
+                phoneNumber = phoneNumber,
                 email = email
             )
         }

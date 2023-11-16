@@ -2,26 +2,37 @@ package com.chaincuerealestate.chaincuerealestatereactive.services
 
 import com.chaincuerealestate.chaincuerealestatereactive.domains.House
 import com.chaincuerealestate.chaincuerealestatereactive.exceptions.HouseNotFoundException
+import com.chaincuerealestate.chaincuerealestatereactive.repositories.HouseImageRepository
+import com.chaincuerealestate.chaincuerealestatereactive.repositories.HouseImagesRepository
 import com.chaincuerealestate.chaincuerealestatereactive.repositories.HouseRepository
 import com.chaincuerealestate.chaincuerealestatereactive.utilities.AweS3Urls
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.mapNotNull
+import kotlinx.coroutines.flow.toList
 import org.springframework.stereotype.Service
 
 @Service
-class HouseService(private val houseRepository: HouseRepository) : HouseServiceI {
+class HouseService(
+    private val houseRepository: HouseRepository,
+    private val houseImagesRepository: HouseImagesRepository,
+    private val houseImageRepository: HouseImageRepository
+) : HouseServiceI {
 
     override suspend fun save(houseTypes: House.HouseTypes): House {
         val house = House.create(houseTypes, AweS3Urls.URLFrontImage1)
         return houseRepository.save(house)
     }
 
-    override suspend fun findById(id: String): House {
-        return houseRepository.findById(id) ?: throw HouseNotFoundException(id)
+    override suspend fun findByIdWithRelations(id: String): House {
+        val house = houseRepository.findById(id) ?: throw HouseNotFoundException(id)
+        val imagesRelation = houseImagesRepository.findAllByHouseId(id)
+        val images = imagesRelation.mapNotNull { houseImageRepository.findById(it.imageId) }.toList()
+        house.images = images
+        return house
     }
 
     override suspend fun findAll(): Flow<House> {
-        val findAll = houseRepository.findAll()
-        return findAll
+        return houseRepository.findAll()
     }
 }
 

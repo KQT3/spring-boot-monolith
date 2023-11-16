@@ -1,10 +1,8 @@
 package com.chaincuerealestate.chaincuerealestatereactive.services.DTOBuilderHelpers
 
 import com.chaincuerealestate.chaincuerealestatereactive.domains.House
-import com.chaincuerealestate.chaincuerealestatereactive.routes.home.HomePage
 import com.chaincuerealestate.chaincuerealestatereactive.services.HouseService
 import kotlinx.coroutines.flow.toList
-import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 
 @Component
@@ -20,7 +18,7 @@ class HouseHelper(private val houseService: HouseService) {
 
     fun <B> updateDTOBuilderWithHouseByHouseId(houseId: String, setHouse: suspend (B, House) -> Unit): suspend (B) -> B {
         return { dtoBuilder ->
-            val house = houseService.findById(houseId)
+            val house = houseService.findByIdWithRelations(houseId)
             setHouse(dtoBuilder, house)
             dtoBuilder
         }
@@ -28,7 +26,7 @@ class HouseHelper(private val houseService: HouseService) {
 
     fun <B> updateDTOBuilderWithHouseByHouse(getHouse: suspend (B) -> House, setHouse: (B, House) -> Unit): suspend (B) -> B {
         return { dtoBuilder ->
-            val house = houseService.findById(getHouse(dtoBuilder).id)
+            val house = houseService.findByIdWithRelations(getHouse(dtoBuilder).id)
             setHouse(dtoBuilder, house)
             dtoBuilder
         }

@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS house_image
 );
 
 
-CREATE TABLE IF NOT EXISTS house_images
+CREATE TABLE IF NOT EXISTS house_image_relations
 (
     id       VARCHAR(255) PRIMARY KEY,
     house_id VARCHAR(255),

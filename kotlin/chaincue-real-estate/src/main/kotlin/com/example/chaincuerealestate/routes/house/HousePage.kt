@@ -1,12 +1,9 @@
 package com.example.chaincuerealestate.routes.house
 
 import com.example.chaincuerealestate.domains.Broker
-import com.example.chaincuerealestate.domains.Country
 import com.example.chaincuerealestate.domains.House
 import com.example.chaincuerealestate.domains.HouseImage
 import com.example.chaincuerealestate.routes.home.HomePage
-import com.example.chaincuerealestate.routes.houses.HousesPageDTO
-import com.example.chaincuerealestate.services.DTOBuilderHelpers.CountryHelper
 import com.example.chaincuerealestate.services.DTOBuilderHelpers.HouseHelper
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
@@ -57,12 +54,12 @@ class HousePage (
         )
     }
 
-    private fun toDTO(house: Broker): HousePageDTO.Broker {
+    private fun toDTO(broker: Broker): HousePageDTO.Broker {
         return HousePageDTO.Broker(
-            house.id,
-            house.name,
-            house.phoneNumber,
-            house.email
+            broker.id,
+            broker.name,
+            broker.phoneNumber,
+            broker.email
         )
     }
 

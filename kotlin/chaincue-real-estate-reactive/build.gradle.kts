@@ -5,6 +5,7 @@ plugins {
     id("io.spring.dependency-management") version "1.1.3"
     kotlin("jvm") version "1.8.22"
     kotlin("plugin.spring") version "1.8.22"
+    id("org.graalvm.buildtools.native") version "0.9.28"
 }
 
 group = "com.chaincue-real-estate"
@@ -57,3 +58,13 @@ tasks.withType<Test> {
 tasks.bootBuildImage {
     builder.set("paketobuildpacks/builder-jammy-base:latest")
 }
+
+graalvmNative {
+    binaries.all {
+        resources.autodetect()
+    }
+    toolchainDetection = false
+}
+
+
+
